@@ -1,6 +1,8 @@
 require("dotenv/config");
+require("./db/mongoose")
 const express = require("express");
 const morgan = require('morgan')
+
 const productsRouter = require("./routes/products")
 
 const app = express();
