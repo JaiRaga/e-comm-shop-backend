@@ -17,8 +17,14 @@ router.get('/', async (req, res) => {
   // inorder to populate category
   let populate = req.query['category'] === 'true' ? 'category' : '';
 
+  // get categories from query params and filter only the categories based on the categories id passed
+  let filter = {};
+  if (req.query.category) {
+    filter = { category: req.query.category.split(',') };
+  }
+
   try {
-    const products = await Product.find({}).select(q).populate(populate);
+    const products = await Product.find(filter).select(q).populate(populate);
     if (!products) {
       return res.status(404).json({ mesage: 'no products found' });
     }
